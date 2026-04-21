@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f4ede0;
+  --bg2: #ece0cc;
+  --text: #2c1e10;
+  --dim: #7a6850;
+  --line: #c0a878;
+  --cream: #fdf8f0;
+  --red: #c83018;
+  --red-dark: #801808;
+  --red-light: #e06040;
+  --gold: #ffdd00;
+  --gold-dim: #d09020;
+  --pipe: #00a830;
+  --pipe-dark: #008820;
+  --pipe-light: #00c040;
+  --brick: #5a4028;
+  --sky: #5c94fc;
+  --sky-bot: #8ab8fc;
+}
+
+@theme {
+  --color-paper: var(--bg);
+  --color-paper2: var(--bg2);
+  --color-ink: var(--text);
+  --color-ink-dim: var(--dim);
+  --color-line: var(--line);
+  --color-cream: var(--cream);
+  --color-mario-red: var(--red);
+  --color-mario-red-dark: var(--red-dark);
+  --color-mario-red-light: var(--red-light);
+  --color-gold: var(--gold);
+  --color-gold-dim: var(--gold-dim);
+  --color-pipe: var(--pipe);
+  --color-brick: var(--brick);
+  --color-sky: var(--sky);
+  --font-px: "Press Start 2P", monospace;
+  --font-body: "Lora", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 像素描边盒子 */
+.pxbox {
+  background: var(--cream);
+  border: 3px solid var(--brick);
+  box-shadow: 4px 4px 0 rgba(100, 30, 10, 0.25), inset 0 0 0 1px rgba(200, 100, 50, 0.15);
+}
+
+/* 数字计数动画（等宽防抖动） */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Konami 彩虹模式 */
+@keyframes rainbow {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.konami-active {
+  animation: rainbow 0.4s linear infinite;
+}
+
+/* 故障效果（COMING SOON 卡） */
+@keyframes glitch {
+  0%, 90%, 100% { opacity: 1; transform: none; }
+  92% { opacity: 0.8; transform: translateX(-2px) skewX(-2deg); filter: hue-rotate(90deg); }
+  94% { opacity: 1; transform: translateX(2px); filter: hue-rotate(-90deg); }
+  96% { opacity: 0.9; transform: translateX(-1px); }
+}
+
+.glitch {
+  animation: glitch 4s ease-in-out infinite;
+}
+
+/* 扫描线效果 */
+@keyframes scanline {
+  from { background-position: 0 0; }
+  to   { background-position: 0 8px; }
+}
+
+.group:hover .menu-scanline {
+  opacity: 1 !important;
+  animation: scanline 0.5s linear infinite;
+}
+
+/* 浮动动画 */
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(-5px); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* 战力条入场动画 */
+@keyframes grow-bar {
+  from { width: 0%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch        { animation: none; }
+  .konami-active { animation: none; }
+  .menu-scanline { animation: none !important; opacity: 0 !important; }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

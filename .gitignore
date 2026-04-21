@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build
+.next/
+out/
+build/
+dist/
+
+# env
+.env
+.env.local
+.env*.local
+
+# vercel
+.vercel
+
+# misc
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# agents/skills (local tooling)
+.agents/
+
+# local AI tooling
+.claude/
+.omx/
+AGENTS.md
+skills-lock.json

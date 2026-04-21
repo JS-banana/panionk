@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- outer shadow -->
+  <rect x="0" y="0" width="32" height="32" fill="#7a4800"/>
+  <!-- main gold face -->
+  <rect x="0" y="0" width="31" height="31" fill="#d09020"/>
+  <!-- highlight top row -->
+  <rect x="1" y="1" width="29" height="2" fill="#ffe060"/>
+  <!-- highlight left col -->
+  <rect x="1" y="1" width="2" height="29" fill="#ffe060"/>
+  <!-- shadow bottom row -->
+  <rect x="1" y="28" width="30" height="3" fill="#7a4800"/>
+  <!-- shadow right col -->
+  <rect x="28" y="1" width="3" height="29" fill="#7a4800"/>
+  <!-- inner face -->
+  <rect x="4" y="4" width="24" height="24" fill="#e0a010"/>
+
+  <!-- pixel ? glyph — white, 3px stroke on 32px grid -->
+  <!-- top bar -->
+  <rect x="11" y="7"  width="10" height="3" fill="#fff"/>
+  <!-- right side down -->
+  <rect x="18" y="10" width="3"  height="4" fill="#fff"/>
+  <!-- elbow right -->
+  <rect x="15" y="14" width="6"  height="3" fill="#fff"/>
+  <!-- hook center -->
+  <rect x="13" y="17" width="5"  height="3" fill="#fff"/>
+  <!-- dot -->
+  <rect x="14" y="22" width="4"  height="4" fill="#fff"/>
+</svg>
