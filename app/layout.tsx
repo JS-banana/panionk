@@ -1,14 +1,9 @@
 import type { Metadata } from 'next';
-import { Oswald, Press_Start_2P, Space_Mono } from 'next/font/google';
+import { Oswald, Space_Mono } from 'next/font/google';
+import { siteMeta } from '@/data/site';
+import { siteJsonLd } from '@/lib/json-ld';
+import { siteUrl } from '@/lib/site-url';
 import './globals.css';
-import { SoundProvider } from '@/components/system/SoundProvider';
-
-const pressStart2P = Press_Start_2P({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-px',
-  display: 'swap',
-});
 
 const spaceMono = Space_Mono({
   weight: ['400', '700'],
@@ -24,21 +19,45 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: 'PANIONK',
-  description: 'AI Builder · Agent Maker · Product-minded Developer',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://laifuyou.com'),
+  title: siteMeta.title,
+  description: siteMeta.description,
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'PANIONK',
-    description: 'AI Builder · Agent Maker',
+    type: 'website',
+    locale: siteMeta.locale,
+    url: '/',
+    siteName: siteMeta.name,
+    title: siteMeta.title,
+    description: siteMeta.description,
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: siteMeta.title,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteMeta.title,
+    description: siteMeta.description,
     images: ['/og.png'],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN" className={`${pressStart2P.variable} ${spaceMono.variable} ${oswald.variable}`}>
+    <html lang="zh-CN" className={`${spaceMono.variable} ${oswald.variable}`}>
       <body>
-        <SoundProvider>{children}</SoundProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+        />
+        {children}
       </body>
     </html>
   );
