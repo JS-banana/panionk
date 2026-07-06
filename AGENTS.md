@@ -51,6 +51,21 @@ The current target page has five sections:
 
 Do not add a "coming soon", "new quest", or unfinished-products section. Show only public projects or public traces.
 
+## Site Content
+
+All public site copy and links live in `data/` as static TypeScript modules. There is no runtime database or API.
+
+- `data/urls.ts` — canonical outbound URLs (GitHub, blog, Juejin, X, WeChat)
+- `data/site.ts` — site meta, navigation, identity chips
+- `data/hero.ts` — hero copy and HUD labels
+- `data/identity.ts` — identity section copy and agent loop labels
+- `data/projects.ts` — public project cards
+- `data/trail.ts` — learning trail cards
+- `data/links.ts` — footer social links
+- `data/sections.ts` — section headings and shared copy for projects, learning, footer
+
+`components/panionk/PanionkSite.tsx` is the only runtime UI component. It renders the five sections from `data/*`.
+
 ## Design References And Assets
 
 Reference images live in `docs/design/references/`. They are for visual guidance only; do not slice them into the website.
@@ -100,10 +115,10 @@ Stack:
 Commands:
 
 ```bash
-npm install
-npm run dev
-npm run build
-npm run lint
+pnpm install
+pnpm dev
+pnpm build
+pnpm lint
 ```
 
 Use `rtk` when running shell commands from Codex.
@@ -112,10 +127,10 @@ Use `rtk` when running shell commands from Codex.
 
 For visual work:
 
-- run `npm run build` before handoff when feasible,
+- run `pnpm build` before handoff when feasible,
 - inspect desktop and mobile layouts,
 - check that text remains DOM-rendered and readable,
 - verify reduced-motion behavior for decorative animations,
 - confirm project cards still scale beyond the current two projects.
 
-Preserve unrelated dirty worktree changes. Current historical `docs/design/web1` and `docs/design/web2` deletion states are not part of the active redesign unless the user asks.
+Preserve unrelated dirty worktree changes unless the user asks to include them.
