@@ -1,28 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
-  <!-- outer shadow -->
-  <rect x="0" y="0" width="32" height="32" fill="#7a4800"/>
-  <!-- main gold face -->
-  <rect x="0" y="0" width="31" height="31" fill="#d09020"/>
-  <!-- highlight top row -->
-  <rect x="1" y="1" width="29" height="2" fill="#ffe060"/>
-  <!-- highlight left col -->
-  <rect x="1" y="1" width="2" height="29" fill="#ffe060"/>
-  <!-- shadow bottom row -->
-  <rect x="1" y="28" width="30" height="3" fill="#7a4800"/>
-  <!-- shadow right col -->
-  <rect x="28" y="1" width="3" height="29" fill="#7a4800"/>
-  <!-- inner face -->
-  <rect x="4" y="4" width="24" height="24" fill="#e0a010"/>
+  <rect width="32" height="32" fill="#080907"/>
+  <rect x="1" y="1" width="30" height="30" fill="#10100d"/>
+  <rect x="1" y="1" width="30" height="2" fill="#d5a044"/>
+  <rect x="1" y="29" width="30" height="2" fill="#5d4320"/>
+  <rect x="1" y="1" width="2" height="30" fill="#d5a044"/>
+  <rect x="29" y="1" width="2" height="30" fill="#5d4320"/>
 
-  <!-- pixel ? glyph — white, 3px stroke on 32px grid -->
-  <!-- top bar -->
-  <rect x="11" y="7"  width="10" height="3" fill="#fff"/>
-  <!-- right side down -->
-  <rect x="18" y="10" width="3"  height="4" fill="#fff"/>
-  <!-- elbow right -->
-  <rect x="15" y="14" width="6"  height="3" fill="#fff"/>
-  <!-- hook center -->
-  <rect x="13" y="17" width="5"  height="3" fill="#fff"/>
-  <!-- dot -->
-  <rect x="14" y="22" width="4"  height="4" fill="#fff"/>
+  <rect x="8" y="7" width="5" height="19" fill="#c43a28"/>
+  <rect x="13" y="7" width="9" height="4" fill="#c43a28"/>
+  <rect x="22" y="11" width="4" height="7" fill="#8f241b"/>
+  <rect x="13" y="18" width="9" height="4" fill="#c43a28"/>
+  <rect x="13" y="11" width="8" height="7" fill="#080907"/>
+
+  <rect x="15" y="12" width="5" height="3" fill="#6bcbd6"/>
+  <rect x="22" y="21" width="3" height="3" fill="#6bcbd6"/>
+  <rect x="25" y="18" width="2" height="2" fill="#d5a044"/>
+  <rect x="6" y="25" width="2" height="2" fill="#d5a044"/>
 </svg>

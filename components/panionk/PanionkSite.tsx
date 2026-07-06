@@ -16,60 +16,37 @@ import {
   Network,
   PenLine,
   Sparkles,
+  type LucideIcon,
 } from 'lucide-react';
+import { heroContent, heroHudPills } from '@/data/hero';
+import { identityContent } from '@/data/identity';
+import { footerLinks } from '@/data/links';
 import { projects } from '@/data/projects';
+import { footerSection, learningSection, projectsSection } from '@/data/sections';
+import { identityChips, navItems, siteMeta } from '@/data/site';
+import { trailCards } from '@/data/trail';
 
-const navItems = [
-  { label: 'Work', href: '#projects' },
-  { label: 'Notes', href: '#learning' },
-  { label: 'Elsewhere', href: '#elsewhere' },
-];
+const identityIconMap = {
+  'brain-circuit': BrainCircuit,
+  network: Network,
+  box: Box,
+  sparkles: Sparkles,
+} satisfies Record<(typeof identityChips)[number]['icon'], LucideIcon>;
 
-const identityChips = [
-  { label: 'AI Applications', icon: BrainCircuit },
-  { label: 'Agent Workflows', icon: Network },
-  { label: 'Product Thinking', icon: Box },
-  { label: 'Creative Execution', icon: Sparkles },
-];
+const heroHudIconMap = {
+  bot: Bot,
+  network: Network,
+  crosshair: Crosshair,
+  'file-text': FileText,
+} satisfies Record<(typeof heroHudPills)[number]['icon'], LucideIcon>;
 
-const trailCards = [
-  {
-    title: '博客',
-    meta: 'blog.laifuyou.com',
-    text: '后续主要沉淀 AI、Agent、全栈应用和产品实践，也记录长期技术思考。',
-    href: 'https://blog.laifuyou.com',
-    items: ['AI 应用', 'Agent 实践', '全栈产品'],
-  },
-  {
-    title: '公众号',
-    meta: '孙小帅 kk',
-    text: '用更易懂的大白话，记录 AI 应用开发、产品思维、生活体验和创造者视角。',
-    href: '/wechat.png',
-    items: ['生活感悟', '技术大白话', '创造者视角'],
-  },
-  {
-    title: '掘金',
-    meta: 'juejin.cn',
-    text: '在掘金记录技术分析、实践拆解和社区交流。',
-    href: 'https://juejin.cn/user/1204720476890477',
-    items: ['技术分析', '实践复盘', '社区交流'],
-  },
-  {
-    title: '项目实践',
-    meta: 'github.com/JS-banana',
-    text: '把想法做成可运行的产品和工具，在真实使用里继续迭代。',
-    href: 'https://github.com/JS-banana',
-    items: ['AI Tools', 'Product Systems', 'Real-world Test'],
-  },
-];
-
-const finalLinks = [
-  { label: 'GitHub', hint: 'JS-banana', href: 'https://github.com/JS-banana', icon: Github },
-  { label: 'Blog', hint: 'blog.laifuyou.com', href: 'https://blog.laifuyou.com', icon: FileText },
-  { label: 'WeChat', hint: '孙小帅 kk', href: '/wechat.png', icon: MessageCircle },
-  { label: 'Juejin', hint: '技术分析与实践复盘', href: 'https://juejin.cn/user/1204720476890477', icon: PenLine },
-  { label: 'X', hint: '@pandionkk', href: 'https://x.com/pandionkk', icon: Globe2 },
-];
+const footerIconMap = {
+  github: Github,
+  'file-text': FileText,
+  'message-circle': MessageCircle,
+  'pen-line': PenLine,
+  'globe-2': Globe2,
+} satisfies Record<(typeof footerLinks)[number]['icon'], LucideIcon>;
 
 function useScrollHud() {
   const { scrollYProgress } = useScroll();
@@ -129,7 +106,7 @@ function RunnerSprite({ speed }: { speed: number }) {
 
   return (
     <span
-      aria-label="PANIONK runner"
+      aria-label={`${siteMeta.name} runner`}
       className={`runner-sprite runner-${mode}`}
       role="img"
       style={{ '--runner-duration': `${duration}s` } as CSSProperties}
@@ -140,7 +117,7 @@ function RunnerSprite({ speed }: { speed: number }) {
 function ChromeNav({ progress, speed }: { progress: number; speed: number }) {
   return (
     <header className="site-chrome" aria-label="Primary navigation">
-      <a className="brand" href="#hero">PANIONK</a>
+      <a className="brand" href="#hero">{siteMeta.name}</a>
       <nav className="nav-links">
         {navItems.map(item => (
           <a key={item.href} href={item.href}>{item.label}</a>
@@ -159,7 +136,7 @@ function ChromeNav({ progress, speed }: { progress: number; speed: number }) {
   );
 }
 
-function HudPill({ icon: Icon, label }: { icon: typeof Bot; label: string }) {
+function HudPill({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
   return (
     <div className="hud-pill">
       <Icon size={27} strokeWidth={1.4} />
@@ -184,39 +161,39 @@ function HeroSection({ progress }: { progress: number }) {
       </motion.div>
       <div className="hero-content">
         <div className="hero-hud">
-          <HudPill icon={Bot} label="AI Maker" />
-          <HudPill icon={Network} label="Agent Practice" />
-          <HudPill icon={Crosshair} label="HZ - 26" />
-          <HudPill icon={FileText} label="Build Log" />
+          {heroHudPills.map(({ label, icon }) => {
+            const Icon = heroHudIconMap[icon];
+            return <HudPill key={label} icon={Icon} label={label} />;
+          })}
         </div>
-        <h1>PANIONK</h1>
-        <p className="hero-role">AI BUILDER / AGENT MAKER / PRODUCT-MINDED DEVELOPER</p>
-        <p className="hero-copy">关注 AI 与智能体，把想法做成可以运行的应用。</p>
-        <p className="hero-copy muted">Building AI tools, agent workflows, and useful small products.</p>
+        <h1>{siteMeta.name}</h1>
+        <p className="hero-role">{siteMeta.tagline}</p>
+        <p className="hero-copy" lang="zh">{heroContent.copyZh}</p>
+        <p className="hero-copy muted" lang="en">{heroContent.copyEn}</p>
         <div className="hero-actions">
-          <a className="primary-cta" href="#projects">
-            Explore work
+          <a className="primary-cta" href={heroContent.primaryCta.href}>
+            {heroContent.primaryCta.label}
             <Sprite name="redSpark" className="cta-spark" />
           </a>
-          <a className="ghost-cta" href="https://github.com/JS-banana" target="_blank" rel="noreferrer">
-            GitHub <ArrowUpRight size={18} />
+          <a className="ghost-cta" href={heroContent.secondaryCta.href} target="_blank" rel="noreferrer">
+            {heroContent.secondaryCta.label} <ArrowUpRight size={18} />
           </a>
         </div>
         <div className="scroll-cue-new">
           <span className="mouse-icon" />
-          <span>SCROLL TO COLLECT</span>
+          <span>{heroContent.scrollCue}</span>
           <i />
         </div>
       </div>
       <div className="drag-card">
-        <span>DRAG TO BUILD</span>
+        <span>{heroContent.dragLabel}</span>
         <div className="drop-zone">
           <Box size={34} strokeWidth={1.3} />
           <Sprite name="cursor" />
         </div>
       </div>
       <div className="archive-map">
-        <span>ARCHIVE MAP</span>
+        <span>{heroContent.archiveMapLabel}</span>
         <div>
           {Array.from({ length: 20 }).map((_, index) => <i key={index} className={index === Math.floor(progress / 5) ? 'active' : ''} />)}
         </div>
@@ -228,48 +205,64 @@ function HeroSection({ progress }: { progress: number }) {
 function IdentitySection() {
   return (
     <section id="identity" className="identity-section section-frame">
-      <div className="section-kicker"><span>02 / 05</span><i />IDENTITY / AI MAKER PROFILE</div>
+      <div className="section-kicker"><span>02 / 05</span><i />{identityContent.kicker}</div>
       <div className="identity-grid">
         <div className="identity-copy">
-          <h2><span>AI</span> MAKER,<br />PRODUCT BUILDER</h2>
-          <p className="zh">我关注 AI、智能体和应用开发，把学习、想法和问题意识变成可以使用的东西。</p>
-          <p>Learning in public. Shipping in small loops.</p>
+          <h2>
+            <span>{identityContent.heading[0]}</span> {identityContent.heading[1]}<br />{identityContent.heading[2]}
+          </h2>
+          <p className="zh" lang="zh">{identityContent.copyZh}</p>
+          <p lang="en">{identityContent.copyEn}</p>
           <div className="chip-grid">
-            {identityChips.map(({ label, icon: Icon }) => (
-              <a className="identity-chip" key={label} href="#projects">
-                <Icon size={30} strokeWidth={1.3} />
-                <span>{label}</span>
-              </a>
-            ))}
+            {identityChips.map(({ label, icon }) => {
+              const Icon = identityIconMap[icon];
+              return (
+                <a className="identity-chip" key={label} href="#projects">
+                  <Icon size={30} strokeWidth={1.3} />
+                  <span>{label}</span>
+                </a>
+              );
+            })}
           </div>
-          <a className="inline-link" href="#learning">Read the build notes <ArrowUpRight size={18} /></a>
+          <a className="inline-link" href={identityContent.notesLink.href}>
+            {identityContent.notesLink.label} <ArrowUpRight size={18} />
+          </a>
         </div>
         <div className="silhouette-panel">
           <div className="silhouette-img" />
           <AgentLoop />
-          <div className="note note-one">问题意识<br />找到真正的需求<br />拆解、验证、解决</div>
-          <div className="note note-two">构建有用的东西：<br />解决实际问题<br />创造正向影响<br />长期主义</div>
+          {identityContent.notes.map(note => (
+            <div key={note.className} className={`note ${note.className}`}>
+              {note.lines.map((line, index) => (
+                <span key={line}>
+                  {index > 0 ? <br /> : null}
+                  {line}
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
       <div className="legend-row">
-        <span><i className="red" />BUILDING</span>
-        <span><i className="green" />THINKING</span>
-        <span><i className="cyan" />SHIPPING</span>
-        <span className="interaction-hints">SCROLL: silhouette glow responds · NODES: agent paths pulse · HOVER: chips magnetize</span>
+        <span><i className="red" />{identityContent.legend[0]}</span>
+        <span><i className="green" />{identityContent.legend[1]}</span>
+        <span><i className="cyan" />{identityContent.legend[2]}</span>
+        <span className="interaction-hints">{identityContent.interactionHints}</span>
       </div>
     </section>
   );
 }
 
 function AgentLoop() {
-  const nodes = ['OBSERVE', 'PLAN', 'ACT', 'REFLECT'];
   return (
     <div className="agent-loop" aria-hidden="true">
       <svg viewBox="0 0 300 520">
         <path d="M92 34 C246 83 190 160 240 210 C274 268 139 309 198 376 C235 423 147 466 92 490" />
         {[42, 164, 290, 424].map((y, index) => <circle key={y} cx={index % 2 ? 232 : 112} cy={y} r="7" />)}
       </svg>
-      {nodes.map((node, index) => <span key={node} className={`loop-node loop-${index}`}>{node}</span>)}
+      {identityContent.agentNodes.map((node, index) => (
+        <span key={node} className={`loop-node loop-${index}`}>{node}</span>
+      ))}
     </div>
   );
 }
@@ -303,11 +296,13 @@ function ProjectsSection() {
   return (
     <section id="projects" className="projects-section">
       <div className="paper-panel">
-        <div className="section-kicker dark"><span>03 / 05</span><i />PROJECTS</div>
+        <div className="section-kicker dark"><span>03 / 05</span><i />{projectsSection.kicker}</div>
         <div className="section-heading center">
-          <h2>PUBLIC <span>BUILDS</span></h2>
-          <p>A growing shelf of tools and systems I actually use.</p>
-          <a href="https://github.com/JS-banana" target="_blank" rel="noreferrer">View all on GitHub <ArrowUpRight size={18} /></a>
+          <h2>{projectsSection.title[0]} <span>{projectsSection.title[1]}</span></h2>
+          <p>{projectsSection.description}</p>
+          <a href={projectsSection.githubLink.href} target="_blank" rel="noreferrer">
+            {projectsSection.githubLink.label} <ArrowUpRight size={18} />
+          </a>
         </div>
         <div className="project-grid">
           {projects.map((project, index) => (
@@ -319,8 +314,8 @@ function ProjectsSection() {
                     <h3>{project.name}</h3>
                     <span className="public-dot">PUBLIC</span>
                   </div>
-                  <p className="project-zh">{project.zh}</p>
-                  <p>{project.en}</p>
+                  <p className="project-zh" lang="zh">{project.zh}</p>
+                  <p lang="en">{project.en}</p>
                   <div className="project-labels">
                     {project.labels.map(label => <span key={label}>{label}</span>)}
                   </div>
@@ -328,7 +323,7 @@ function ProjectsSection() {
                 <ProjectPreview name={project.name} />
               </div>
               <div className="project-bottom">
-                <span><Sprite name="coin" className="tiny-coin" /> COIN × {project.name === 'ANYCHAT' ? 24 : 31}</span>
+                <span><Sprite name="coin" className="tiny-coin" /> COIN × {project.coinCount}</span>
                 <strong>OPEN <ArrowUpRight size={20} /></strong>
               </div>
             </a>
@@ -343,17 +338,26 @@ function LearningTrailSection({ progress }: { progress: number }) {
   return (
     <section id="learning" className="learning-section">
       <div className="learning-map">
-        <div className="section-kicker dark"><span>04 / 05</span><i />WRITING / LEARNING TRAIL</div>
+        <div className="section-kicker dark"><span>04 / 05</span><i />{learningSection.kicker}</div>
         <div className="route-legend">
           <strong>ROUTE MAP</strong>
-          {['Capture', 'Think', 'Write', 'Share'].map((item, index) => <span key={item} className={`dot-${index}`}>{item}</span>)}
+          {learningSection.routeLegend.map((item, index) => (
+            <span key={item} className={`dot-${index}`}>{item}</span>
+          ))}
         </div>
         <svg className="route-lines" viewBox="0 0 760 560" aria-hidden="true">
           <path d="M188 112 C354 110 298 220 430 210 C566 201 498 350 640 356 C727 370 604 470 700 514" />
           <path d="M96 390 C230 321 285 451 414 385 C530 326 556 446 672 420" />
         </svg>
         {trailCards.map((card, index) => (
-          <a href={card.href} className={`trail-card trail-card-${index}`} key={card.title} target={card.href.startsWith('http') || card.href.endsWith('.png') ? '_blank' : undefined} rel="noreferrer">
+          <a
+            href={card.href}
+            className={`trail-card trail-card-${index}`}
+            key={card.title}
+            lang="zh"
+            target={card.href.startsWith('http') || card.href.endsWith('.png') ? '_blank' : undefined}
+            rel="noreferrer"
+          >
             <div className="window-top"><span /><span /><span /></div>
             <h3>{card.title}</h3>
             <strong>{card.meta}</strong>
@@ -363,7 +367,7 @@ function LearningTrailSection({ progress }: { progress: number }) {
             </ul>
           </a>
         ))}
-        <div className="stamp">KEEP BUILDING</div>
+        <div className="stamp">{learningSection.stamp}</div>
       </div>
       <div className="learning-copy">
         <div className="trail-status">
@@ -371,19 +375,27 @@ function LearningTrailSection({ progress }: { progress: number }) {
           <i style={{ '--progress': `${Math.max(18, Math.min(100, progress))}%` } as CSSProperties} />
           <strong>{Math.max(63, progress)}%</strong>
         </div>
-        <h2>LEARNING <span>TRAIL</span></h2>
-        <p>AI, agents, products, and the notes left behind while building.</p>
-        <p className="zh">把学习过程留下来，也把问题意识做出来。</p>
+        <h2>{learningSection.title[0]} <span>{learningSection.title[1]}</span></h2>
+        <p lang="en">{learningSection.description}</p>
+        <p className="zh" lang="zh">{learningSection.copyZh}</p>
         <div className="learning-actions">
-          <a className="ghost-cta" href="https://blog.laifuyou.com" target="_blank" rel="noreferrer">READ NOTES <ArrowUpRight size={18} /></a>
-          <a className="inline-link" href="https://blog.laifuyou.com" target="_blank" rel="noreferrer">BLOG <ArrowUpRight size={18} /></a>
+          {learningSection.actions.map(action => (
+            <a
+              key={action.label}
+              className={action.variant === 'ghost' ? 'ghost-cta' : 'inline-link'}
+              href={action.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {action.label} <ArrowUpRight size={18} />
+            </a>
+          ))}
         </div>
         <div className="how-it-works">
           <strong>HOW IT WORKS</strong>
-          <span>Capture 记录灵感与问题</span>
-          <span>Think 拆解与学习</span>
-          <span>Write 整理成文章与笔记</span>
-          <span>Share 发布与交流</span>
+          {learningSection.howItWorks.map(item => (
+            <span key={item.step}>{item.step} {item.text}</span>
+          ))}
         </div>
       </div>
     </section>
@@ -396,37 +408,38 @@ function FooterSection({ progress }: { progress: number }) {
       <div className="section-index">05 / 05</div>
       <div className="end-progress">SCROLL {progress}% <i style={{ '--progress': `${progress}%` } as CSSProperties} /></div>
       <div className="portal-frame">
-        <div className="portal-top"><span /><span /><span /><strong>PANIONK PORTAL</strong></div>
+        <div className="portal-top"><span /><span /><span /><strong>{footerSection.portalTitle}</strong></div>
         <div className="portal-window">
           <div className="portal-glow" />
-          <p>THANKS FOR<br />EXPLORING.</p>
-          <p>SEE YOU ON<br />THE OTHER SIDE.</p>
+          {footerSection.portalLines.map(lines => (
+            <p key={lines.join('-')}>{lines[0]}<br />{lines[1]}</p>
+          ))}
         </div>
-        <span className="exit-label">EXIT</span>
+        <span className="exit-label">{footerSection.exitLabel}</span>
       </div>
-      <h2>FOLLOW <span>THE</span> TRAIL</h2>
-      <p className="footer-copy">Work, writing, code, and small signals from PANIONK.</p>
+      <h2>{footerSection.title[0]} <span>{footerSection.title[1]}</span> {footerSection.title[2]}</h2>
+      <p className="footer-copy">{footerSection.copy}</p>
       <div className="final-links">
-        {finalLinks.map(({ label, hint, href, icon: Icon }) => (
-          <a key={label} href={href} target="_blank" rel="noreferrer">
-            <Icon size={38} strokeWidth={1.3} />
-            <span><strong>{label}</strong><small>{hint}</small></span>
-            <ArrowUpRight size={22} />
-          </a>
-        ))}
+        {footerLinks.map(({ label, hint, href, icon }) => {
+          const Icon = footerIconMap[icon];
+          return (
+            <a key={label} href={href} target="_blank" rel="noreferrer">
+              <Icon size={38} strokeWidth={1.3} />
+              <span><strong>{label}</strong><small>{hint}</small></span>
+              <ArrowUpRight size={22} />
+            </a>
+          );
+        })}
       </div>
-      <a className="github-banner" href="https://github.com/JS-banana" target="_blank" rel="noreferrer">
-        OPEN GITHUB <ArrowUpRight size={42} />
+      <a className="github-banner" href={footerSection.githubBanner.href} target="_blank" rel="noreferrer">
+        {footerSection.githubBanner.label} <ArrowUpRight size={42} />
       </a>
       <footer className="bottom-nav">
-        <span>▲ TOP</span>
-        <span>01 HERO</span>
-        <span>02 ABOUT</span>
-        <span>03 WORK</span>
-        <span>04 ELSEWHERE</span>
-        <span className="active">05 EXIT</span>
+        {footerSection.bottomNav.map((label, index) => (
+          <span key={label} className={index === footerSection.bottomNav.length - 1 ? 'active' : undefined}>{label}</span>
+        ))}
         <Sprite name="robotRun" className="footer-robot" />
-        <span>Hangzhou · 2026 · PANIONK</span>
+        <span>{siteMeta.city} · {siteMeta.year} · {siteMeta.name}</span>
       </footer>
     </section>
   );
