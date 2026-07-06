@@ -15,6 +15,9 @@ export function GameCard({ project, delay = 0 }: Props) {
   const defRef = useRef<HTMLDivElement>(null);
   const animated = useRef(false);
   const [showMushroom, setShowMushroom] = useState(false);
+  const score = project.name === 'ANYCHAT'
+    ? { atk: 82, def: 68 }
+    : { atk: 64, def: 80 };
 
   useEffect(() => {
     if (!project.placeholder) return;
@@ -42,18 +45,18 @@ export function GameCard({ project, delay = 0 }: Props) {
       if (entry.isIntersecting && !animated.current) {
         animated.current = true;
         if (atkRef.current) {
-          atkRef.current.style.width = `${project.atk}%`;
+          atkRef.current.style.width = `${score.atk}%`;
           atkRef.current.style.transition = 'width 700ms cubic-bezier(0.22, 1, 0.36, 1)';
         }
         if (defRef.current) {
-          defRef.current.style.width = `${project.def}%`;
+          defRef.current.style.width = `${score.def}%`;
           defRef.current.style.transition = 'width 700ms cubic-bezier(0.22, 1, 0.36, 1) 100ms';
         }
       }
     }, { threshold: 0.3 });
     obs.observe(card);
     return () => obs.disconnect();
-  }, [project]);
+  }, [project, score.atk, score.def]);
 
   if (project.placeholder) {
     return (
@@ -169,7 +172,7 @@ export function GameCard({ project, delay = 0 }: Props) {
       <p style={{ color: 'var(--dim)', fontSize: 12, fontStyle: 'italic', marginBottom: 18 }}>{project.en}</p>
 
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' as const, marginBottom: 16 }}>
-        {project.stack.map(t => (
+        {project.labels.map(t => (
           <span
             key={t}
             style={{
