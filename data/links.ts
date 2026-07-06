@@ -1,5 +1,5 @@
 export type ExternalLink = {
-  key: 'BLOG' | 'JUEJIN' | 'CODE' | 'SOCIAL';
+  key: 'BLOG' | 'JUEJIN' | 'CODE' | 'WECHAT' | 'SOCIAL';
   name: string;
   hint: string;
   href: string;
@@ -8,14 +8,14 @@ export type ExternalLink = {
 export const links: ExternalLink[] = [
   {
     key: 'BLOG',
-    name: '技术博客',
-    hint: 'ssscode.com',
-    href: 'https://js-banana.github.io/blog',
+    name: '博客',
+    hint: 'blog.laifuyou.com',
+    href: 'https://blog.laifuyou.com',
   },
   {
     key: 'JUEJIN',
     name: '掘金',
-    hint: '前端技术分享',
+    hint: '技术分析与实践复盘',
     href: 'https://juejin.cn/user/1204720476890477',
   },
   {
@@ -25,9 +25,15 @@ export const links: ExternalLink[] = [
     href: 'https://github.com/JS-banana',
   },
   {
+    key: 'WECHAT',
+    name: '公众号',
+    hint: '孙小帅 kk',
+    href: '/wechat.png',
+  },
+  {
     key: 'SOCIAL',
     name: 'Twitter / X',
-    hint: '@sunshuaishuai5',
-    href: 'https://x.com/sunshuaishuai5',
+    hint: '@pandionkk',
+    href: 'https://x.com/pandionkk',
   },
 ];
