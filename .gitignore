@@ -28,3 +28,6 @@ dist/
 .claude/
 .omx/
 skills-lock.json
+
+# local docs (design refs, agent notes)
+docs/
