@@ -118,6 +118,7 @@ The site is a static export served by nginx on the `claw` host, with Cloudflare 
 - TLS: Let's Encrypt for `laifuyou.com` + `www.laifuyou.com`, issued over DNS-01 with the certbot Cloudflare plugin, auto-renewing. DNS-01 is what lets a certificate be issued before the domain points at the host, so a migration needs no downtime.
 - DNS: both records are A records to the host, proxied through Cloudflare. `www` 301-redirects to the apex.
 - Security headers live in `/etc/nginx/snippets/panionk-security.conf` and are `include`d in every `location` block — nginx drops inherited `add_header` directives in any location that declares its own, so they cannot sit at server level.
+- The host only accepts traffic on 80/443 from Cloudflare's published ranges (ufw rules tagged `Cloudflare`); everything else times out, so the origin cannot be reached directly even if its address becomes known. `/etc/nginx/conf.d/cloudflare-realip.conf` maps `CF-Connecting-IP` back onto the client address so logs and fail2ban still see real visitors. Both lists come from `cloudflare.com/ips-v4` and `ips-v6` — if you ever refresh one, refresh the other too, and re-run `certbot renew --dry-run` afterwards, since the other certificates on this host validate over HTTP-01 through the proxy.
 - Infrastructure credentials (Cloudflare DNS token) live in `.env.local`, which is gitignored. The app itself reads no environment variables at build or runtime.
 
 ## Verification
