@@ -97,11 +97,26 @@ Commands:
 ```bash
 pnpm install
 pnpm dev
-pnpm build
+pnpm build      # 静态导出到 out/
 pnpm lint
+pnpm ship       # 构建并发布到服务器
+pnpm rollback   # 回滚到上一个版本
 ```
 
 Use `rtk` when running shell commands from Codex.
+
+Never run `pnpm build` while `pnpm dev` is running — they share `.next` and the build clobbers the dev manifest, which shows up as `__webpack_modules__[moduleId] is not a function`. Stop dev first, or delete `.next` afterwards.
+
+## Deployment
+
+The site is a static export served by nginx on the `claw` server, with Cloudflare in front. It is **not** on Vercel any more.
+
+- Origin: `107.173.3.60`, nginx site config at `/etc/nginx/sites-available/laifuyou.com`
+- Releases: `/srv/panionk/releases/<timestamp>/`, with `/srv/panionk/current` symlinked to the live one. `pnpm ship` uploads a new release and flips the symlink atomically, keeping the last 5.
+- TLS: Let's Encrypt for `laifuyou.com` + `www.laifuyou.com`, issued over DNS-01 with the certbot Cloudflare plugin (credentials at `/root/.secrets/cloudflare.ini`), auto-renewing.
+- DNS: both records are A records to the origin, proxied through Cloudflare. `www` 301-redirects to the apex.
+- Security headers live in `/etc/nginx/snippets/panionk-security.conf` and are `include`d in every `location` block — nginx drops inherited `add_header` directives in any location that declares its own, so they cannot sit at server level.
+- `CLOUDFLARE_API_TOKEN` in `.env.local` (gitignored) has DNS edit rights on the zone; it is only used for infrastructure work, never by the app.
 
 ## Verification
 

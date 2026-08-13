@@ -13,7 +13,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ship": "bash scripts/deploy.sh",
+    "rollback": "bash scripts/deploy.sh --rollback"
   },
   "dependencies": {
     "next": "^15.5.15",
