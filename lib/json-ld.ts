@@ -19,6 +19,7 @@ export function siteJsonLd() {
         '@type': 'Person',
         '@id': `${siteUrl}/#person`,
         name: siteMeta.name,
+        alternateName: siteMeta.nameZh,
         url: siteUrl,
         jobTitle: 'AI Builder',
         description: siteMeta.description,
@@ -28,7 +29,7 @@ export function siteJsonLd() {
       ...projects.map(project => ({
         '@type': 'SoftwareApplication',
         name: project.name,
-        description: project.en,
+        description: project.desc,
         url: project.href,
         applicationCategory: 'DeveloperApplication',
         author: { '@id': `${siteUrl}/#person` },

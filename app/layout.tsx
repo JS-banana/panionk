@@ -1,20 +1,20 @@
 import type { Metadata } from 'next';
-import { Oswald, Space_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import { siteMeta } from '@/data/site';
 import { siteJsonLd } from '@/lib/json-ld';
 import { siteUrl } from '@/lib/site-url';
 import './globals.css';
 
-const spaceMono = Space_Mono({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  variable: '--font-body',
-  display: 'swap',
-});
-
-const oswald = Oswald({
-  subsets: ['latin'],
-  variable: '--font-display',
+/**
+ * 自托管的拉丁子集，不走 Google CDN——相当一部分读者在国内。
+ * 中文没有对应字形，会自动回落到系统无衬线，字体反差就是这么形成的。
+ */
+const plexMono = localFont({
+  src: [
+    { path: '../public/fonts/ibm-plex-mono-latin-400.woff2', weight: '400', style: 'normal' },
+    { path: '../public/fonts/ibm-plex-mono-latin-600.woff2', weight: '600', style: 'normal' },
+  ],
+  variable: '--font-mono',
   display: 'swap',
 });
 
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  /* 分享图由 app/opengraph-image.tsx 生成，Next 会自动挂到 og:image 与 twitter:image */
   openGraph: {
     type: 'website',
     locale: siteMeta.locale,
@@ -32,26 +33,17 @@ export const metadata: Metadata = {
     siteName: siteMeta.name,
     title: siteMeta.title,
     description: siteMeta.description,
-    images: [
-      {
-        url: '/og.png',
-        width: 1200,
-        height: 630,
-        alt: siteMeta.title,
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteMeta.title,
     description: siteMeta.description,
-    images: ['/og.png'],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN" className={`${spaceMono.variable} ${oswald.variable}`}>
+    <html lang="zh-CN" className={plexMono.variable}>
       <body>
         <script
           type="application/ld+json"

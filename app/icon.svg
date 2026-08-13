@@ -1,19 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
-  <rect width="32" height="32" fill="#080907"/>
-  <rect x="1" y="1" width="30" height="30" fill="#10100d"/>
-  <rect x="1" y="1" width="30" height="2" fill="#d5a044"/>
-  <rect x="1" y="29" width="30" height="2" fill="#5d4320"/>
-  <rect x="1" y="1" width="2" height="30" fill="#d5a044"/>
-  <rect x="29" y="1" width="2" height="30" fill="#5d4320"/>
-
-  <rect x="8" y="7" width="5" height="19" fill="#c43a28"/>
-  <rect x="13" y="7" width="9" height="4" fill="#c43a28"/>
-  <rect x="22" y="11" width="4" height="7" fill="#8f241b"/>
-  <rect x="13" y="18" width="9" height="4" fill="#c43a28"/>
-  <rect x="13" y="11" width="8" height="7" fill="#080907"/>
-
-  <rect x="15" y="12" width="5" height="3" fill="#6bcbd6"/>
-  <rect x="22" y="21" width="3" height="3" fill="#6bcbd6"/>
-  <rect x="25" y="18" width="2" height="2" fill="#d5a044"/>
-  <rect x="6" y="25" width="2" height="2" fill="#d5a044"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- 圆形托盘呼应页面上的项目图标；P 是从 IBM Plex Mono SemiBold 里取出的真实字形，与 Hero 字标同源 -->
+  <circle cx="16" cy="16" r="16" fill="#1d4d3f"/>
+  <path
+    transform="translate(8.26 24.5) scale(0.02435 -0.02435)"
+    fill="#ffffff"
+    d="M80 0V698H345Q447 698 501.0 640.0Q555 582 555 482Q555 382 501.0 324.0Q447 266 345 266H211V0ZM211 373H318Q371 373 394.0 394.5Q417 416 417 463V501Q417 548 394.0 569.5Q371 591 318 591H211Z"
+  />
 </svg>

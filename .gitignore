@@ -29,5 +29,6 @@ dist/
 .omx/
 skills-lock.json
 
-# local docs (design refs, agent notes)
-docs/
+# local docs (design refs, agent notes) — ADRs stay versioned
+docs/*
+!docs/adr/

@@ -1,18 +1,11 @@
-import { urls } from '@/data/urls';
-
-export const heroHudPills = [
-  { label: 'AI Maker', icon: 'bot' },
-  { label: 'Agent Practice', icon: 'network' },
-  { label: 'HZ - 26', icon: 'crosshair' },
-  { label: 'Build Log', icon: 'file-text' },
-] as const;
-
 export const heroContent = {
-  copyZh: '关注 AI 与智能体，把想法做成可以运行的应用。',
-  copyEn: 'Building AI tools, agent workflows, and useful small products.',
-  primaryCta: { label: 'Explore work', href: '#projects' },
-  secondaryCta: { label: 'GitHub', href: urls.github },
-  scrollCue: 'SCROLL TO COLLECT',
-  dragLabel: 'DRAG TO BUILD',
-  archiveMapLabel: 'ARCHIVE MAP',
+  /** 主张，Hero 里字号最大的一句中文。展示文案不带句末句号 */
+  motto: '拥抱技术，热爱生活',
+  /** 补充：前半句说性格，后半句说领域，用逗号串成一句，避免行中出现句号 */
+  lede: '想法很多，喜欢做些有趣的事情，关注 AI 应用和产品',
+  /**
+   * 英文格言放在页脚而不是 motto 下面：两者是同一句话的中英版本，
+   * 紧挨着会读成一对翻译，正是要避开的镜像文案。
+   */
+  signoff: 'Powered by Tech, Inspired by Life.',
 } as const;
