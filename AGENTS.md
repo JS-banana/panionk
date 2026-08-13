@@ -109,14 +109,16 @@ Never run `pnpm build` while `pnpm dev` is running — they share `.next` and th
 
 ## Deployment
 
-The site is a static export served by nginx on the `claw` server, with Cloudflare in front. It is **not** on Vercel any more.
+This repo is public. Never commit the origin server's IP address, credential file paths, zone or project identifiers, or anything else that would help someone reach the origin directly — Cloudflare sits in front precisely to keep it unreachable. Refer to the host by its SSH alias only.
 
-- Origin: `107.173.3.60`, nginx site config at `/etc/nginx/sites-available/laifuyou.com`
+The site is a static export served by nginx on the `claw` host, with Cloudflare in front. It is **not** on Vercel any more.
+
 - Releases: `/srv/panionk/releases/<timestamp>/`, with `/srv/panionk/current` symlinked to the live one. `pnpm ship` uploads a new release and flips the symlink atomically, keeping the last 5.
-- TLS: Let's Encrypt for `laifuyou.com` + `www.laifuyou.com`, issued over DNS-01 with the certbot Cloudflare plugin (credentials at `/root/.secrets/cloudflare.ini`), auto-renewing.
-- DNS: both records are A records to the origin, proxied through Cloudflare. `www` 301-redirects to the apex.
+- nginx site config lives at `/etc/nginx/sites-available/laifuyou.com`.
+- TLS: Let's Encrypt for `laifuyou.com` + `www.laifuyou.com`, issued over DNS-01 with the certbot Cloudflare plugin, auto-renewing. DNS-01 is what lets a certificate be issued before the domain points at the host, so a migration needs no downtime.
+- DNS: both records are A records to the host, proxied through Cloudflare. `www` 301-redirects to the apex.
 - Security headers live in `/etc/nginx/snippets/panionk-security.conf` and are `include`d in every `location` block — nginx drops inherited `add_header` directives in any location that declares its own, so they cannot sit at server level.
-- `CLOUDFLARE_API_TOKEN` in `.env.local` (gitignored) has DNS edit rights on the zone; it is only used for infrastructure work, never by the app.
+- Infrastructure credentials (Cloudflare DNS token) live in `.env.local`, which is gitignored. The app itself reads no environment variables at build or runtime.
 
 ## Verification
 
