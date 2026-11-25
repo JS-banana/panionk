@@ -152,6 +152,7 @@ section {
   border-radius: 50%;
   border: 1px solid var(--line);
   background: var(--hover);
+  font: 600 12px var(--mono);
   overflow: hidden;
   transition: border-color 160ms ease, transform 160ms ease;
 }

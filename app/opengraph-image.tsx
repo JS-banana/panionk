@@ -27,7 +27,7 @@ function iconDataUri(iconPath: string) {
 export default async function OpenGraphImage() {
   const icons = projects.map(project => ({
     name: project.name,
-    src: iconDataUri(project.icon),
+    src: project.icon ? iconDataUri(project.icon) : null,
   }));
 
   return new ImageResponse(
@@ -73,15 +73,18 @@ export default async function OpenGraphImage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 92,
-                  height: 92,
-                  marginLeft: index === 0 ? 0 : 20,
-                  borderRadius: 46,
+                  width: 72,
+                  height: 72,
+                  marginLeft: index === 0 ? 0 : 12,
+                  borderRadius: 36,
+                  fontFamily: 'Plex',
+                  fontSize: 14,
+                  fontWeight: 600,
                   border: '1px solid #e7e7e5',
                   background: '#f7f8f7',
                 }}
               >
-                <img src={icon.src} alt="" width={58} height={58} />
+                {icon.src ? <img src={icon.src} alt="" width={46} height={46} /> : icon.name}
               </div>
             ))}
           </div>

@@ -32,8 +32,8 @@ function ProjectsSection() {
       <div className="apps">
         {projects.map(project => (
           <a className="app" key={project.name} href={project.href} target="_blank" rel="noreferrer">
-            <span className="app-icon">
-              <Image src={project.icon} alt="" width={128} height={128} />
+            <span className="app-icon" aria-hidden="true">
+              {project.icon ? <Image src={project.icon} alt="" width={128} height={128} /> : project.name}
             </span>
             <span className="app-name">{project.name}</span>
             <span className="app-desc">{project.desc}</span>

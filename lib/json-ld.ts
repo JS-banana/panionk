@@ -31,7 +31,7 @@ export function siteJsonLd() {
         name: project.name,
         description: project.desc,
         url: project.href,
-        applicationCategory: 'DeveloperApplication',
+        applicationCategory: project.applicationCategory,
         author: { '@id': `${siteUrl}/#person` },
       })),
     ],
