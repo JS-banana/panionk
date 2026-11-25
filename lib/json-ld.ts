@@ -14,6 +14,7 @@ export function siteJsonLd() {
         name: siteMeta.name,
         description: siteMeta.description,
         inLanguage: 'zh-CN',
+        publisher: { '@id': `${siteUrl}/#person` },
       },
       {
         '@type': 'Person',
@@ -27,7 +28,7 @@ export function siteJsonLd() {
         knowsAbout: ['Artificial Intelligence', 'AI Agents', 'Product Development'],
       },
       ...projects.map(project => ({
-        '@type': 'SoftwareApplication',
+        '@type': project.schemaType,
         name: project.name,
         description: project.desc,
         url: project.href,

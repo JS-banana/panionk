@@ -13,7 +13,7 @@ function Hero() {
       <h1 className="wordmark">{siteMeta.name}</h1>
       <p className="handle">
         {siteMeta.nameZh} ·{' '}
-        <a href={urls.github} target="_blank" rel="noreferrer">
+        <a href={urls.github} target="_blank" rel="noopener">
           {siteMeta.handle}
         </a>
       </p>
@@ -28,12 +28,19 @@ function ProjectsSection() {
     <Reveal id="projects">
       <div className="head">
         <h2>{projectsSection.title}</h2>
+        <a className="out" href={projectsSection.moreHref} target="_blank" rel="noopener">
+          {projectsSection.moreLabel}
+        </a>
       </div>
       <div className="apps">
         {projects.map(project => (
-          <a className="app" key={project.name} href={project.href} target="_blank" rel="noreferrer">
+          <a className="app" key={project.name} href={project.href} target="_blank" rel="noopener">
             <span className="app-icon" aria-hidden="true">
-              {project.icon ? <Image src={project.icon} alt="" width={128} height={128} /> : project.name}
+              {project.icon ? (
+                <Image src={project.icon} alt="" width={128} height={128} />
+              ) : (
+                project.monogram ?? project.name
+              )}
             </span>
             <span className="app-name">{project.name}</span>
             <span className="app-desc">{project.desc}</span>

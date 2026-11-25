@@ -5,17 +5,19 @@ import type { ReactNode } from 'react';
 
 export function Reveal({ children, id }: { children: ReactNode; id?: string }) {
   const ref = useRef<HTMLElement>(null);
-  const [shown, setShown] = useState(false);
+  const [shown, setShown] = useState(true);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced || !('IntersectionObserver' in window)) {
-      setShown(true);
+    const belowFold = node.getBoundingClientRect().top > window.innerHeight;
+    if (reduced || !belowFold || !('IntersectionObserver' in window)) {
       return;
     }
+
+    setShown(false);
 
     const observer = new IntersectionObserver(
       entries => {

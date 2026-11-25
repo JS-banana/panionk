@@ -17,6 +17,7 @@ function Glyph({ icon }: { icon: keyof typeof brandIcons }) {
 export function SocialDock() {
   const [open, setOpen] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
 
   /* 关闭时把焦点还给按钮。写成显式函数而不是 effect —— 用 effect 的话首次挂载
      就会命中 !open 分支，页面一加载公众号按钮就带着焦点环 */
@@ -27,6 +28,8 @@ export function SocialDock() {
 
   useEffect(() => {
     if (!open) return;
+
+    closeButton.current?.focus();
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') close();
@@ -59,7 +62,7 @@ export function SocialDock() {
               className="dock-item"
               href={link.href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener"
               aria-label={link.label}
             >
               <Glyph icon={link.icon} />
@@ -72,6 +75,9 @@ export function SocialDock() {
       {open ? (
         <div className="qr" onClick={event => event.target === event.currentTarget && close()}>
           <div className="qr-panel" role="dialog" aria-modal="true" aria-label="公众号二维码">
+            <button ref={closeButton} className="qr-close" type="button" aria-label="关闭" onClick={close}>
+              ×
+            </button>
             <Image src={urls.wechat} alt="微信公众号：孙小帅 kk" width={1710} height={624} priority />
             <p className="caption">扫码或在微信搜索「孙小帅 kk」</p>
           </div>

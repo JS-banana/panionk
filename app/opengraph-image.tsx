@@ -25,8 +25,9 @@ function iconDataUri(iconPath: string) {
 }
 
 export default async function OpenGraphImage() {
-  const icons = projects.map(project => ({
+  const icons = projects.slice(0, 6).map(project => ({
     name: project.name,
+    monogram: project.monogram ?? project.name,
     src: project.icon ? iconDataUri(project.icon) : null,
   }));
 
@@ -73,23 +74,25 @@ export default async function OpenGraphImage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 72,
-                  height: 72,
+                  width: 64,
+                  height: 64,
                   marginLeft: index === 0 ? 0 : 12,
-                  borderRadius: 36,
-                  fontFamily: 'Plex',
-                  fontSize: 14,
+                  borderRadius: 32,
+                  fontFamily: 'Plex, Noto',
+                  fontSize: 15,
                   fontWeight: 600,
+                  letterSpacing: 1,
+                  color: '#1d4d3f',
                   border: '1px solid #e7e7e5',
                   background: '#f7f8f7',
                 }}
               >
-                {icon.src ? <img src={icon.src} alt="" width={46} height={46} /> : icon.name}
+                {icon.src ? <img src={icon.src} alt="" width={40} height={40} /> : icon.monogram}
               </div>
             ))}
           </div>
 
-          <div style={{ fontFamily: 'Plex', fontSize: 24, letterSpacing: 1, color: '#5b5b5b' }}>
+          <div style={{ fontFamily: 'Plex', fontSize: 22, letterSpacing: 1, color: '#5b5b5b' }}>
             {heroContent.signoff}
           </div>
         </div>
