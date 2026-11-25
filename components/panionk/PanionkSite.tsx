@@ -3,7 +3,7 @@ import { Reveal } from '@/components/panionk/Reveal';
 import { SocialDock } from '@/components/panionk/SocialDock';
 import { heroContent } from '@/data/hero';
 import { projects } from '@/data/projects';
-import { projectsSection } from '@/data/sections';
+import { projectSections, type ProjectSectionConfig } from '@/data/sections';
 import { siteMeta } from '@/data/site';
 import { urls } from '@/data/urls';
 
@@ -23,17 +23,21 @@ function Hero() {
   );
 }
 
-function ProjectsSection() {
+function ProjectGroupSection({ section }: { section: ProjectSectionConfig }) {
+  const items = projects.filter(project => project.group === section.group);
+
   return (
-    <Reveal id="projects">
+    <Reveal id={section.id}>
       <div className="head">
-        <h2>{projectsSection.title}</h2>
-        <a className="out" href={projectsSection.moreHref} target="_blank" rel="noopener">
-          {projectsSection.moreLabel}
-        </a>
+        <h2>{section.title}</h2>
+        {section.moreLabel && section.moreHref ? (
+          <a className="out" href={section.moreHref} target="_blank" rel="noopener">
+            {section.moreLabel}
+          </a>
+        ) : null}
       </div>
       <div className="apps">
-        {projects.map(project => (
+        {items.map(project => (
           <a className="app" key={project.name} href={project.href} target="_blank" rel="noopener">
             <span className="app-icon" aria-hidden="true">
               {project.icon ? (
@@ -56,7 +60,9 @@ export function PanionkSite() {
     <div className="wrap">
       <main>
         <Hero />
-        <ProjectsSection />
+        {projectSections.map(section => (
+          <ProjectGroupSection key={section.id} section={section} />
+        ))}
       </main>
 
       {/* 粘性页脚：内容不满一屏时贴住视口底部，超出时正常跟在后面 */}

@@ -109,7 +109,11 @@ a {
 
 /* 模块头：中文标题与右侧出口共用一条基线，不加编号、不加横线 */
 section {
-  padding: 0 0 56px;
+  padding: 0 0 44px;
+}
+
+section:last-of-type {
+  padding-bottom: 56px;
 }
 
 .head {
@@ -368,6 +372,14 @@ footer {
 
   .hero {
     padding: 52px 0 44px;
+  }
+
+  section {
+    padding: 0 0 36px;
+  }
+
+  section:last-of-type {
+    padding-bottom: 48px;
   }
 
   .head {
