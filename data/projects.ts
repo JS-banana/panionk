@@ -42,6 +42,15 @@ export const projects: Project[] = [
     icon: '/assets/projects/image-tools.png',
   },
   {
+    name: '想法墙',
+    desc: '看看大家想要什么，又有谁已经把它做出来了',
+    href: 'https://ideas.laifuyou.com/',
+    group: 'website',
+    schemaType: 'WebApplication',
+    applicationCategory: 'SocialNetworkingApplication',
+    icon: '/assets/projects/any-ideas.png',
+  },
+  {
     name: "Let's Do",
     desc: '在 Mac 上随手记待办，按周排进日历',
     href: 'https://github.com/JS-banana/lets-do',
@@ -75,7 +84,6 @@ export const projects: Project[] = [
     group: 'software',
     schemaType: 'SoftwareApplication',
     applicationCategory: 'DeveloperApplication',
-    icon: null,
-    monogram: 'HUD',
+    icon: '/assets/projects/agy-hud.png',
   },
 ];
